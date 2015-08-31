@@ -7,29 +7,34 @@
 -- these lines here.
 
 
--- drop DB if exist
+-- drop DB tournament if exist
 DROP DATABASE IF EXISTS tournament;
 
--- create  DB tournament
+-- create DB tournament
 CREATE DATABASE tournament;
 
 -- psql command to connect to tournament db
 \c tournament
 
--- create TABLE players;
+-- create TABLE players with 2 columns id and name
 CREATE TABLE players (
     id SERIAL PRIMARY KEY,
     name TEXT
 );
 
--- create TABLE matches;
+-- create TABLE matches with 3 columns id, winner and loser
 CREATE TABLE matches (
     id SERIAL PRIMARY KEY,
     winner  INTEGER REFERENCES players (id),
     loser  INTEGER REFERENCES players (id)
 );
 
--- create VIEW standings
+-- Create a VIEW standings in tournament DB, making a SELECT
+-- (players.id, players.name, wins, matches_played) to count
+-- wins and matches played in table matches for every player
+-- in TABLE players (group result with aggregate function)
+-- in descending order by wins
+
 CREATE VIEW standings AS
 	SELECT players.id AS player_id, players.name,
 		(SELECT COUNT(matches.winner)

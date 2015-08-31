@@ -110,6 +110,10 @@ def swissPairings():
         name2: the second player's name
     """
 
+    # SELECT to have player_id, name, wins, matches_played from standings_view
+    # as swiss_pairings,create a container to register swiss_pairings iterations
+    # and set the range to find the size of list and register the results.
+    # The paired results are appended at the end of each iteration.
     conn = connect()
     c = conn.cursor()
     c.execute("SELECT player_id, name, wins, matches_played FROM standings AS swiss_pairings")
